@@ -34,3 +34,17 @@ echo '<br/>';
 //decrementa o elemento
 $redis->decr('chave_numerica');
 echo $redis->get('chave_numerica');
+echo '<br/>';
+echo '<pre>';
+// Adicionando e recuperando múltiplas chaves!!
+$arrStrings = array(
+    "chave_str:1"=>"Valor da chave 1",
+    "chave_str:2"=>"Valor da chave 2",
+    "chave_str:3"=>"Valor da chave 3",
+);
+//Remove tudo se existir
+$redis->del(array_keys($arrStrings));
+//adiciona os valores em lote
+$redis->mset($arrStrings);
+//busca os valores em lote
+var_dump($redis->mget(array_keys($arrStrings)));
